@@ -1,0 +1,87 @@
+<xsd:schema targetNamespace="http://schemas.microsoft.com/sqlazure/2010/12/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc annox"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:annox="http://annox.dev.java.net" 
+    xmlns:a="http://annox.dev.java.net/com.servicemesh.agility.tools.annotation"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+    xmlns:jxml="http://annox.dev.java.net/javax.xml.bind.annotation" 
+    xmlns:azure="http://schemas.microsoft.com/sqlazure/2010/12/" >
+
+   <xsd:include schemaLocation="sqlModelCommon.xsd" />
+
+   <xsd:complexType name="Server">
+  	  <xsd:annotation>
+         <xsd:appinfo>
+            <annox:annotate target="class">
+               <jxml:XmlRootElement>
+                  <jxml:name>Server</jxml:name>
+               </jxml:XmlRootElement>
+               <a:ApiModel comment = "Class for holding database Server information." 
+                           description = "" 
+                           externalDocLink = "" />
+            </annox:annotate>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="azure:SqlModelCommon">
+            <xsd:sequence>
+               <xsd:element name="AdministratorLogin" type="xsd:string" minOccurs="1" >
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <annox:annotate target="field">
+                           <a:ApiField comment="The username of the Admin user for the SQL Server." />
+                        </annox:annotate>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AdministratorLoginPassword" type="xsd:string" minOccurs="0" >
+      	          <xsd:annotation>
+      	             <xsd:appinfo>
+                        <annox:annotate target="field">
+                           <a:ApiField comment="The password of the Admin user for the SQL Server." />
+                        </annox:annotate>
+                     </xsd:appinfo>
+      	          </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="Location" type="xsd:string" minOccurs="0" >
+      	          <xsd:annotation>
+      	             <xsd:appinfo>
+                        <annox:annotate target="field">
+                           <a:ApiField comment="The geographic location of the SQL Server. East Asia | Southeast Asia | Japan West | Japan East | Central US | North Central US | South Central US | West US | East US | East US 2 | North Europe | West Europe | Brazil South" />
+                        </annox:annotate>
+                     </xsd:appinfo>
+      	          </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="FullyQualifiedDomainName" type="xsd:string" minOccurs="0" >
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <annox:annotate target="field">
+                           <a:ApiField comment="Name of the server including the standard Azure suffix." />
+                        </annox:annotate>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="GeoPairedRegion" type="xsd:string" minOccurs="0" >
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <annox:annotate target="field">
+                           <a:ApiField comment="Geographical region paired with the server location.  Available when 'contentview=generic' is not used." />
+                        </annox:annotate>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="Version" type="xsd:string" minOccurs="0" >
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <annox:annotate target="field">
+                           <a:ApiField comment="Version of the server.  Available when 'contentview=generic' is not used." />
+                        </annox:annotate>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>

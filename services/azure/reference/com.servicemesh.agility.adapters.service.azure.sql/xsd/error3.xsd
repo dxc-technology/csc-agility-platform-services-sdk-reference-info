@@ -1,0 +1,45 @@
+<xsd:schema targetNamespace="Microsoft.SqlServer.Management.Framework.Web.Services" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc annox"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:annox="http://annox.dev.java.net" 
+    xmlns:a="http://annox.dev.java.net/com.servicemesh.agility.tools.annotation"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+    xmlns:jxml="http://annox.dev.java.net/javax.xml.bind.annotation"
+    xmlns:azure="Microsoft.SqlServer.Management.Framework.Web.Services" >
+
+   <xsd:complexType name="Error">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <annox:annotate target="class">
+               <jxml:XmlRootElement>
+                  <jxml:name>Error</jxml:name>
+               </jxml:XmlRootElement>
+               <a:ApiModel comment = "Class for holding error responses from API calls.  Package specific for decode." 
+                           description = "" 
+                           externalDocLink = "" />
+            </annox:annotate>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Code" type="xsd:string" >
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Contains the Error Code returned from an API call." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation> 
+         </xsd:element>         
+         <xsd:element name="Message" type="xsd:string" minOccurs="0" >
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Contains the Error Message returned from an API call." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

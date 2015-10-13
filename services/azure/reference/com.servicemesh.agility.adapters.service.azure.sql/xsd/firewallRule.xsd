@@ -1,0 +1,51 @@
+<xsd:schema targetNamespace="http://schemas.microsoft.com/sqlazure/2010/12/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc annox"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:annox="http://annox.dev.java.net" 
+    xmlns:a="http://annox.dev.java.net/com.servicemesh.agility.tools.annotation"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+    xmlns:jxml="http://annox.dev.java.net/javax.xml.bind.annotation" 
+    xmlns:azure="http://schemas.microsoft.com/sqlazure/2010/12/" >
+
+   <xsd:include schemaLocation="sqlModelCommon.xsd" />
+
+   <xsd:complexType name="FirewallRule">
+  	  <xsd:annotation>
+         <xsd:appinfo>
+            <annox:annotate target="class">
+               <jxml:XmlRootElement>
+                  <jxml:name>FirewallRule</jxml:name>
+               </jxml:XmlRootElement>
+               <a:ApiModel comment = "Class for holding information needed to create a SQL Server firewall rule." 
+                           description = "" 
+                           externalDocLink = "" />
+            </annox:annotate>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="azure:SqlModelCommon">
+            <xsd:sequence>
+               <xsd:element name="StartIPAddress" type="xsd:string" minOccurs="1" >
+      	          <xsd:annotation>
+      	             <xsd:appinfo>
+                        <annox:annotate target="field">
+                           <a:ApiField comment="The first IP that is granted access to the SQL Server by the firewall rule." />
+                        </annox:annotate>
+                     </xsd:appinfo>
+      	          </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="EndIPAddress" type="xsd:string" minOccurs="1" >
+      	          <xsd:annotation>
+      	             <xsd:appinfo>
+                        <annox:annotate target="field">
+                           <a:ApiField comment="The last IP that is granted access to the SQL Server by the firewall rule." />
+                        </annox:annotate>
+                     </xsd:appinfo>
+      	          </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>

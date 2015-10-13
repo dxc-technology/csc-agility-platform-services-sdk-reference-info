@@ -1,0 +1,30 @@
+<xsd:schema targetNamespace="http://schemas.microsoft.com/sqlazure/2010/12/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc annox"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:annox="http://annox.dev.java.net" 
+    xmlns:a="http://annox.dev.java.net/com.servicemesh.agility.tools.annotation"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+    xmlns:jxml="http://annox.dev.java.net/javax.xml.bind.annotation"
+    xmlns:azure="http://schemas.microsoft.com/sqlazure/2010/12/" >
+
+   <xsd:include schemaLocation="serverList.xsd" />
+   
+   <xsd:complexType name="Servers">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <annox:annotate target="class">
+               <jxml:XmlRootElement>
+                  <jxml:name>Servers</jxml:name>
+               </jxml:XmlRootElement>
+               <a:ApiModel comment = "Collection of server resource objects.  This is used when the list servers REST call does not use 'contentview=generic'" 
+                           description = "" 
+                           externalDocLink = "" />
+            </annox:annotate>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="azure:ServerList" />
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>

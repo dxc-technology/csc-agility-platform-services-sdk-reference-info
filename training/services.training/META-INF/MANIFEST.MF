@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Demo Adapter 1
+Bundle-SymbolicName: services.training.1
+Bundle-Version: %bundle_version
+Bundle-Activator: services.training.TrainingServiceAdapter
+Bundle-Vendor: Training Class
+Bundle-Category: adapter:service
+Bundle-ClassPath: .
+Import-Package: com.servicemesh.agility.api,
+ com.servicemesh.agility.sdk.service.exception;version="1.0.0",
+ com.servicemesh.agility.sdk.service.helper;version="1.0.0",
+ com.servicemesh.agility.sdk.service.msgs;version="1.0.0",
+ com.servicemesh.agility.sdk.service.operations;version="1.0.0",
+ com.servicemesh.agility.sdk.service.spi;version="1.0.0",
+ com.servicemesh.agility.sdk.service.util;version="1.0.0",
+ com.servicemesh.centerpoint.api,
+ com.servicemesh.core.async;version="1.0.0",
+ com.servicemesh.core.messaging;version="1.0.0",
+ com.servicemesh.core.reactor,
+ com.servicemesh.io.http,
+ com.servicemesh.io.proxy,
+ javax.crypto,
+ javax.crypto.spec,
+ javax.xml,
+ javax.xml.bind,
+ javax.xml.datatype,
+ org.apache.log4j,
+ org.osgi.framework;version="1.7.0"

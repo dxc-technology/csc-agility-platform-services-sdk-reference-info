@@ -1,0 +1,36 @@
+#####################################################################
+Azure SQL Demo Info
+#####################################################################
+
+Prerequisites:
+1. Create and Sync Azure Cloud
+2. Make sure the SM Linux (Ubuntu 12.04 LTS x64) Server stack exists
+   and that you can start a template using it with your Azure Cloud
+3. Create an Azure SQL Provider under network services in the Azure
+   Cloud
+   
+#####################################################################
+
+To Demo a dependent Linux VM connecting to AzureSQL...
+
+1. Import the SQLDemoPackage from SQLDemoPackage.zip
+2. Import the SQLDemoBlueprint from SQLDemoBlueprint.zip
+3. Deploy the blueprint in Agility
+4. Start the deployed topology
+5. After the instance is running make sure the InstallUnixODBC script
+   ran successfully
+6. Run the DemoSQLConnection operational script. This makes SQL calls
+   from the VM to the SQL Server that show the defined username,
+   database name, and firewall rule(s). The output from the SQL calls
+   will be in the script output.
+
+#####################################################################
+
+Additional things you can demo…
+In the SQLDemoPackage there are operational scripts that can be used
+to show how you can create and populate a schema from one instance 
+and query those changes from another instance. To do so use the 
+SchemaCreate and QuerySchema operational scripts.
+
+#####################################################################
+

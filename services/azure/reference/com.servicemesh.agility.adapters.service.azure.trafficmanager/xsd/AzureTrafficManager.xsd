@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:azure="http://schemas.microsoft.com/windowsazure"
+	targetNamespace="http://schemas.microsoft.com/windowsazure"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	jaxb:extensionBindingPrefixes="xjc"
+	jaxb:version="2.0">
+
+  <xsd:annotation>
+    <xsd:appinfo>
+      <jaxb:globalBindings>
+        <xjc:simple/>
+        <jaxb:serializable uid="1"/>
+      </jaxb:globalBindings>
+      <jaxb:schemaBindings>
+        <jaxb:package name="com.microsoft.schemas.azure.trafficmgr"/>
+      </jaxb:schemaBindings>
+    </xsd:appinfo>
+  </xsd:annotation>
+
+  <!-- =======================================================================
+       Error
+       =================================================================== -->
+
+  <xsd:element name="Error" type="azure:Error"/>
+    <xsd:complexType name="Error">
+      <xsd:sequence>
+        <xsd:element name="Code" type="xsd:string"/>
+        <xsd:element name="Message" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- =======================================================================
+       Profile
+       =================================================================== -->
+
+  <xsd:element name="Profiles" type="azure:Profiles"/>
+  <xsd:complexType name="Profiles">
+    <xsd:sequence>
+      <xsd:element name="Profile" type="azure:Profile"
+                   minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Profile" type="azure:Profile"/>
+  <xsd:complexType name="Profile">
+    <xsd:sequence>
+      <xsd:element name="DomainName" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the name of the domain that the profile is being created
+            for. A valid DNS name of the form
+            &lt;subdomain name&gt;.trafficmanager.net, conforming to RFC 1123
+            specification. Total length of the domain name must be less than or
+            equal to 253 characters. The &lt;subdomain name&gt; can contain
+            periods and each label within the subdomain must be less or equal
+            to 63 characters.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the name of the profile. The name must be composed of
+            letters, numbers, and hyphens. The maximum length of the profile
+            name is 256 characters. Hyphens cannot be the first or last
+            character.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="azure:Status" minOccurs="0"/>
+      <xsd:element name="StatusDetails" type="azure:StatusDetails"
+                   minOccurs="0"/>
+      <xsd:element name="Definitions" type="azure:Definitions" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Only one definition version exists for a profile.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="Status">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Enabled"/>
+      <xsd:enumeration value="Disabled"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:element name="StatusDetails" type="azure:StatusDetails"/>
+  <xsd:complexType name="StatusDetails">
+    <xsd:sequence>
+      <xsd:element name="EnabledVersion" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the version of the policy definition. This value is 
+            always 1.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Definitions" type="azure:Definitions"/>
+  <xsd:complexType name="Definitions">
+    <xsd:sequence>
+      <xsd:element name="Definition" type="azure:Definition"
+                   minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- =======================================================================
+       Definition
+       =================================================================== -->
+
+  <xsd:element name="Definition" type="azure:Definition"/>
+  <xsd:complexType name="Definition">
+    <xsd:sequence>
+      <xsd:element name="DnsOptions" type="azure:DnsOptions" minOccurs="0"/>
+      <xsd:element name="Monitors" type="azure:Monitors" minOccurs="0"/>
+      <xsd:element name="Policy" type="azure:Policy" minOccurs="0"/>
+      <xsd:element name="Status" type="azure:Status" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Indicates whether this definition is enabled or disabled for the 
+            profile.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Version" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Indicates the version of the definition returned. This value is
+            always 1.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="TimeToLiveInSeconds">
+    <xsd:annotation>
+      <xsd:documentation>
+        Specifies the DNS Time-to-Live (TTL) that informs the Local DNS
+        resolvers how long to cache DNS entries. The value is an integer from
+        30 through 999,999. Note: the JAXB (JSR-222) specification
+        does not cover generating fail fast logic into the domain model.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:minInclusive value="30"/>
+      <xsd:maxInclusive value="999999"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:element name="DnsOptions" type="azure:DnsOptions"/>
+  <xsd:complexType name="DnsOptions">
+    <xsd:sequence>
+      <xsd:element name="TimeToLiveInSeconds" type="azure:TimeToLiveInSeconds"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="Monitors" type="azure:Monitors"/>
+  <xsd:complexType name="Monitors">
+    <xsd:sequence>
+      <xsd:element name="Monitor" type="azure:Monitor"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- =======================================================================
+       Monitor
+       =================================================================== -->
+
+  <xsd:element name="Monitor" type="azure:Monitor"/>
+  <xsd:complexType name="Monitor">
+    <xsd:sequence>
+      <xsd:element name="IntervalInSeconds" type="xsd:int" default="30">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the number of seconds between consecutive attempts to
+            check the status of a monitoring endpoint. The value must be set to
+            30.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TimeoutInSeconds" type="xsd:int" default="10">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the time to wait for response from the monitoring
+            endpoint. The value must be set to 10.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ToleratedNumberOfFailures" type="xsd:int" default="3">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the number of consecutive failures to probe an endpoint
+            before taking the endpoint out of rotation. The value must be set
+            to 3.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Protocol" type="azure:Protocol">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the protocol to use to monitor endpoint health.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Port" type="azure:Port">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the port used to monitor endpoint health.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="HttpOptions" type="azure:HttpOptions"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="Protocol">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="HTTP"/>
+      <xsd:enumeration value="HTTPS"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="Port">
+    <xsd:annotation>
+      <xsd:documentation>
+        Accepted values are integer values greater than 0 and less or equal to
+        65,535.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:minExclusive value="0"/>
+      <xsd:maxInclusive value="65535"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:element name="HttpOptions" type="azure:HttpOptions"/>
+  <xsd:complexType name="HttpOptions">
+    <xsd:sequence>
+      <xsd:element name="Verb" type="xsd:string" default="GET">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the verb to use when making an HTTP request to monitor
+            endpoint health. The value must be set to GET.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RelativePath" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the path relative to the endpoint domain name to probe
+            for health state. Restrictions are:
+            <ul>
+            <li>The path must be from 1 through 1000 characters.</li>
+            <li>It must start with a forward slash /.</li>
+            <li>It must contain no brackets &lt;&gt;.</li>
+            <li>It must contain no double slashes //.</li>
+            <li>It must be a well-formed URI string.</li>
+            </ul>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ExpectedStatusCode" type="xsd:int" default="200">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the HTTP status code expected from a healthy endpoint.
+            The endpoint is considered unhealthy otherwise. The value must be
+            set to 200.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- =======================================================================
+       Policy
+       =================================================================== -->
+
+  <xsd:element name="Policy" type="azure:Policy"/>
+  <xsd:complexType name="Policy">
+    <xsd:sequence>
+      <xsd:element name="LoadBalancingMethod" type="azure:LoadBalancingMethod">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the load balancing method to use to distribute connection.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Endpoints" type="azure:Endpoints" minOccurs="0"/>
+      <xsd:element name="MonitorStatus" type="azure:MonitorStatus"
+                   minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Indicates health status for the overall load balancing policy.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="LoadBalancingMethod">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Performance"/>
+      <xsd:enumeration value="Failover"/>
+      <xsd:enumeration value="RoundRobin"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:element name="Endpoints" type="azure:Endpoints">
+    <xsd:annotation>
+      <xsd:documentation>
+        Encapsulates the list of Azure Traffic Manager endpoints. You can
+        define up to 100 endpoints in the list.
+        <p>If the load balancing method is set to Failover, traffic to the
+        endpoints is load balanced in the sequential order in which the
+        endpoints are defined.</p>
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Endpoints">
+    <xsd:sequence>
+      <xsd:element name="Endpoint" type="azure:Endpoint"
+                   minOccurs="0" maxOccurs="100"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="MonitorStatus">
+    <xsd:annotation>
+      <xsd:documentation>
+        When defined as part of a Policy, possible values are: Online,
+        Degraded, Inactive, Disabled, CheckingEndpoints.
+        <p>When defined as part of an Endpoint, possible values are: Online,
+        Degraded, Inactive, Disabled, Stopped, CheckingEndpoint.</p>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="CheckingEndpoint"/>
+      <xsd:enumeration value="CheckingEndpoints"/>
+      <xsd:enumeration value="Degraded"/>
+      <xsd:enumeration value="Disabled"/>
+      <xsd:enumeration value="Inactive"/>
+      <xsd:enumeration value="Online"/>
+      <xsd:enumeration value="Stopped"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <!-- =======================================================================
+       Endpoint
+       =================================================================== -->
+
+  <xsd:element name="Endpoint" type="azure:Endpoint"/>
+  <xsd:complexType name="Endpoint">
+    <xsd:sequence>
+      <xsd:element name="DomainName" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the endpoint domain name. The value depends on endpoint
+            type. If Type is CloudService, the value must be a fully qualified
+            domain name (FQDN) of a cloud service that belongs to the
+            subscription ID that owns the definition. If Type is AzureWebsite,
+            the value must be an FQDN of an Azure web site that belongs to the
+            subscription ID that owns the definition. If Type is Any, the value
+            can be any FQDN for an Azure service or a service outside of Azure.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Status" type="azure:Status">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the status of the monitoring endpoint. If set to Enabled,
+            the endpoint is considered by the load balancing method and is
+            monitored.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Type" type="azure:Type" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the type of endpoint being added to the definition. If
+            there is more than one AzureWebsite endpoint, they must be in
+            different datacenters. This limitation doesn’t apply to cloud
+            services. The default value is CloudService. Use the TrafficManager
+            type when configuring nested profiles.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MonitorStatus" type="azure:MonitorStatus"
+                   minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Indicates health status for the endpoint.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Location" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Required when LoadBalancingMethod is set to Performance and Type is
+            set to Any or TrafficManager. Specifies the name of the Azure
+            region. The Location cannot be specified for endpoints of type
+            CloudService or AzureWebsite, in which the locations are determined
+            from the service.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MinChildEndpoints" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Can be specified when Type is set to TrafficManager. The minimum
+            number of healthy endpoints within a nested profile that determines
+            whether any of the endpoints within that profile can receive
+            traffic. Default value is 1.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Weight" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the priority of the endpoint in load balancing. The
+            higher the weight, the more frequently the endpoint will be made
+            available to the load balancer. The value must be greater than
+            0. For endpoints that do not specify a weight value, a default
+            weight of 1 will be used.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="Type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="CloudService"/>
+      <xsd:enumeration value="AzureWebsite"/>
+      <xsd:enumeration value="Any"/>
+      <xsd:enumeration value="TrafficManager"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <!-- =======================================================================
+       AvailabilityResponse (Check DNS Prefix Availability)
+       =================================================================== -->
+
+  <xsd:element name="AvailabilityResponse" type="azure:AvailabilityResponse"/>
+  <xsd:complexType name="AvailabilityResponse">
+    <xsd:sequence>
+      <xsd:element name="Result" type="azure:Result">
+        <xsd:annotation>
+          <xsd:documentation>
+            Indicates whether a DNS name is available for you to use.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="Result">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="true"/>
+      <xsd:enumeration value="false"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
