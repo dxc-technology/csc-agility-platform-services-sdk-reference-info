@@ -13,7 +13,7 @@ A service adapter, built from the Services SDK, is an OSGi bundle comprised of J
 ## Subdirectories
 * doc/: The Agility Platform Services SDK Guide
 * services/: Examples of utilizing the Services SDK and its supporting libraries.
-* services.training/: A Eclipse project including build files to go along with the SDK Training power point.
+* training/: Material from the Services SDK class, including a power point presentation and Eclipse projects for training exercises.
 
 ## Build Configuration
 
@@ -26,5 +26,5 @@ If you want to edit core.azure using Eclipse you'll need to define Eclipse build
 * IVY-LIB: Contains the path to the ivy-lib directory under agility-platform-sdk
 * DIST: Contains the path to the dist directory under agility-platform-sdk
 
-## Licensing
-The Services SDK and the reference code provided in this repository are licensed under the Apache License, Version 2.0. See [LICENSE](https://github.com/ServiceMesh/agility-platform-services-sdk-reference-info/blob/master/LICENSE) for the full license text.
+## License
+The Services SDK and the reference code provided in this repository are licensed under the Apache License, Version 2.0. See [LICENSE](https://github.com/csc/agility-platform-services-sdk-reference-info/blob/master/LICENSE) for the full license text.
