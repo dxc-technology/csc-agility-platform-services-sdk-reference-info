@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Agility - Azure SQL Service Provider
+Bundle-SymbolicName: com.servicemesh.agility.adapters.service.azure.sql
+Bundle-Version: %bundle_version
+Bundle-Activator: com.servicemesh.agility.adapters.service.azure.sql.AzureSQLAdapter
+Bundle-Vendor: CSC Agility Dev
+Bundle-Category: adapter:service
+Bundle-ClassPath: .
+Import-Package: com.servicemesh.agility.adapters.core.azure;version="1.0.0",
+ com.servicemesh.agility.adapters.core.azure.action;version="1.0.0",
+ com.servicemesh.agility.adapters.core.azure.exception;version="1.0.0",
+ com.servicemesh.agility.adapters.core.azure.util;version="1.0.0",
+ com.servicemesh.agility.api,
+ com.servicemesh.agility.sdk.service.exception;version="1.0.0",
+ com.servicemesh.agility.sdk.service.helper;version="1.0.0",
+ com.servicemesh.agility.sdk.service.msgs;version="1.0.0",
+ com.servicemesh.agility.sdk.service.operations;version="1.0.0",
+ com.servicemesh.agility.sdk.service.spi;version="1.0.0",
+ com.servicemesh.agility.sdk.service.util;version="1.0.0",
+ com.servicemesh.centerpoint.api,
+ com.servicemesh.core.async;version="1.0.0",
+ com.servicemesh.core.messaging;version="1.0.0",
+ com.servicemesh.core.reactor,
+ com.servicemesh.io.http,
+ com.servicemesh.io.proxy,
+ javax.crypto,
+ javax.crypto.spec,
+ javax.xml,
+ javax.xml.bind,
+ javax.xml.datatype,
+ org.apache.log4j,
+ org.osgi.framework;version="1.7.0"

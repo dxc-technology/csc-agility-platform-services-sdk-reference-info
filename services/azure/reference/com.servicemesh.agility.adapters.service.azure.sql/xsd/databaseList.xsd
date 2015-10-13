@@ -1,0 +1,38 @@
+<xsd:schema targetNamespace="http://schemas.microsoft.com/sqlazure/2010/12/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc annox"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:annox="http://annox.dev.java.net" 
+    xmlns:a="http://annox.dev.java.net/com.servicemesh.agility.tools.annotation"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+    xmlns:jxml="http://annox.dev.java.net/javax.xml.bind.annotation"
+    xmlns:azure="http://schemas.microsoft.com/sqlazure/2010/12/" >
+
+   <xsd:include schemaLocation="database.xsd" />
+   
+   <xsd:complexType name="DatabaseList">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <annox:annotate target="class">
+               <jxml:XmlRootElement>
+                  <jxml:name>DatabaseList</jxml:name>
+               </jxml:XmlRootElement>
+               <a:ApiModel comment = "Collection of database resource objects.  This will be used to map the generic ResourceDefinitions returned from Azure to specific database resources." 
+                           description = "" 
+                           externalDocLink = "" />
+            </annox:annotate>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Database" type="azure:Database" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Database resource objects." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation> 
+         </xsd:element>         
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,72 @@
+<xsd:schema targetNamespace="http://schemas.microsoft.com/sqlazure/2010/12/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc annox"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:annox="http://annox.dev.java.net" 
+    xmlns:a="http://annox.dev.java.net/com.servicemesh.agility.tools.annotation"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+    xmlns:jxml="http://annox.dev.java.net/javax.xml.bind.annotation"
+    xmlns:azure="http://schemas.microsoft.com/sqlazure/2010/12/" >
+
+   <xsd:complexType name="SqlModelCommon">
+      <xsd:annotation>
+         <xsd:appinfo>
+            <annox:annotate target="class">
+               <jxml:XmlRootElement>
+                  <jxml:name>SqlModelCommon</jxml:name>
+               </jxml:XmlRootElement>
+               <a:ApiModel comment = "Common parent for SQL resource types." 
+                           description = "" 
+                           externalDocLink = "" />
+            </annox:annotate>
+         </xsd:appinfo>
+      </xsd:annotation>
+  	  <xsd:sequence>
+  	     <xsd:element name="Name" type="xsd:string">
+  	  	    <xsd:annotation>
+  	  	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the name of the resource." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	  	    </xsd:annotation>
+  	     </xsd:element>
+  	     <xsd:element name="State" type="xsd:string" minOccurs="0">
+  	  	    <xsd:annotation>
+  	  	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the current state of the resource." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	  	    </xsd:annotation>
+  	     </xsd:element>
+  	     <xsd:element name="Type" type="xsd:string" minOccurs="0">
+  	  	    <xsd:annotation>
+  	  	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the Azure type of resource." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	  	    </xsd:annotation>
+  	     </xsd:element>
+  	     <xsd:element name="SelfLink" type="xsd:string" minOccurs="0">
+  	  	    <xsd:annotation>
+  	  	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="URI to this resource." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	  	    </xsd:annotation>
+  	     </xsd:element>
+  	     <xsd:element name="ParentLink" type="xsd:string" minOccurs="0">
+  	  	    <xsd:annotation>
+  	  	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="URI to the parent of this resource (the server)." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	  	    </xsd:annotation>
+  	     </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

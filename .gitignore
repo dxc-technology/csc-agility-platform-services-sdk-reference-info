@@ -1,0 +1,7 @@
+services/azure/reference/com.servicemesh.agility.adapters.service.azure.sql/bin/
+services/azure/reference/com.servicemesh.agility.adapters.service.azure.sql/rpm
+services/azure/reference/com.servicemesh.agility.adapters.service.azure.trafficmanager/bin/
+services/azure/reference/com.servicemesh.agility.adapters.service.azure.trafficmanager/rpm
+training/services.training/bin
+training/promise.exercises/bin
+training/mock.adapter/bin

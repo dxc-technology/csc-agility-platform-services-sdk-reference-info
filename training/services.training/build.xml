@@ -1,0 +1,168 @@
+<?xml version="1.0" standalone="yes"?>
+<project name="demo.adapter" basedir="." default="help">
+
+   <!-- =====================================================================
+        Definitions
+        ================================================================= -->
+
+   <property name="common.basedir" value="${basedir}/../../../agility-platform-sdk"/>
+   <property name="common.ivy.lib" value="${common.basedir}/ivy-lib"/>
+   <property name="common.dist" value="${common.basedir}/dist"/>
+
+   <!-- version properties -->
+   <property name="version.major" value="1"/>
+   <property name="version.minor" value="0"/>
+   <property name="version.build" value="0"/>
+   <property name="bundle.version"
+             value="${version.major}.${version.minor}.${version.build}"/>
+   <property name="rpm.version"
+             value="${version.major}.${version.minor}-${version.build}"/>
+
+   <!-- standard properties -->
+   <property name="src" value="src"/>
+   <property name="bin" value="bin"/>
+   <property name="rpmbuild" value="rpmbuild"/>
+   <property name="license.dir" value="${common.basedir}"/>
+   <property name="bundle.name" value="${ant.project.name}-${bundle.version}"/>
+   <property name="bundle.jar" value="${bundle.name}.jar"/>
+   <property name="bin.bundle.jar" value = "${bin}/${bundle.jar}"/>
+
+   <!-- RPM properties -->
+   <property name="rpm" value="rpm"/>
+   <property name="rpm.spec" value="${rpm}/SPECS"/>
+   <property name="rpm.arch" value="noarch"/>
+   <property name="rpm.rpms" value="${rpm}/RPMS/${rpm.arch}"/>
+   <property name="rpm.basename" value="training-adapter"/>
+   <property name="rpm.name" value="${rpm.basename}-${rpm.version}"/>
+
+   <!-- classpaths -->
+   <path id="compile.classpath">
+      <fileset dir="${common.dist}">
+         <include name="com.servicemesh.agility.api-*.jar"/>
+         <include name="com.servicemesh.agility.sdk.service-*.jar"/>
+         <include name="com.servicemesh.core-*.jar"/>
+         <include name="com.servicemesh.io-*.jar"/>
+      </fileset>
+      <fileset dir="${common.ivy.lib}">
+         <include name="log4j-*.jar"/>
+         <include name="org.eclipse.osgi-*.jar"/>
+      </fileset>
+   </path>
+
+   <!-- =====================================================================
+        Build targets
+        ================================================================= -->
+   <target name="init">
+      <mkdir dir="${bin}"/>
+   </target>
+
+   <target name="compile" description="Compile all Java source files" depends="init">
+      <echo message="Compiling the java source files..."/>
+      <javac destdir="${bin}" debug="on" fork="true" includeantruntime="false">
+         <src path="${src}"/>
+         <classpath>
+            <path refid="compile.classpath"/>
+         </classpath>
+      </javac>
+   </target>
+
+   <target name="bundle" depends="compile"
+           description="Generates the OSGi bundle"> <!-- depends="compile,git-info" for including git revision info -->
+      <delete file="${bin.bundle.jar}"/>
+      <property name="manifest" value="${bin}/META-INF/MANIFEST.MF"/>
+      <copy file="META-INF/MANIFEST.MF" tofile="${manifest}" overwrite="true"/>
+      <replace file="${manifest}" token="%bundle_version"
+               value="${bundle.version}"/>
+      <!--echo file="${manifest}" append="true"
+            message="Bundle-Description: Adapter for Demo Service."/> Revision r${git.summary}.${line.separator}"/ 
+      <property name="propfile" value="${bin}/resources/Adapter.properties"/>
+      <echo file="${propfile}">adapter.vendor=Trainee
+adapter.version=${bundle.version}
+ adapter.revision=r${git.summary} 
+</echo-->
+      <jar destfile="${bin.bundle.jar}" manifest="${manifest}" basedir="${bin}">
+         <fileset dir="${bin}">
+            <include name="**/*.class"/>
+            <include name="**/*.properties"/>
+         </fileset>
+         <fileset dir="${license.dir}" includes="LICENSE"/>
+      </jar>
+   </target>
+
+   <!-- =====================================================================
+        Distribution targets
+        ================================================================= -->
+   <target name="git-info" unless="git.summary">
+      <exec executable="bash" outputproperty="git.revision">
+         <arg value="-c"/>
+         <arg value="git rev-list HEAD | wc -l | sed 's/^ *//'"/>
+      </exec>
+      <exec executable="bash" outputproperty="git.commit">
+         <arg value="-c"/>
+         <arg value="git log -n1 --pretty=format:%h HEAD"/>
+      </exec>
+      <property name="git.summary" value="${git.revision}.${git.commit}"/>
+   </target>
+
+   <property name="rpm-build-noop" value="true"/>
+   <target name="rpm-build" depends="bundle,git-info" unless="rpm-build-noop" description="Generates the RPM">
+        <echo message="Example only - RPM spec file needed to build real RPM"/>
+        <mkdir dir="${rpm.rpms}"/>
+        <property name="buildroot"
+         value="${rpm}/BUILDROOT/${rpm.name}"/>
+        <delete dir="${buildroot}"/>
+        <copy todir="${buildroot}/opt/agility-platform/deploy"
+              file="${bin.bundle.jar}"/>
+        <loadfile property="license.text" srcFile="${license.dir}/LICENSE"/>
+        <property name="spec" value="${rpm.basename}_mod.spec"/>
+        <property name="specfile" value="${rpm.spec}/${spec}"/>
+        <copy file="${rpm.spec}/${rpm.basename}.spec"
+              tofile="${specfile}" overwrite="true"/>
+        <replace file="${specfile}" token="%license_text"
+                 value="${license.text}"/>
+        <resources id="rpm.args">
+          <string>-bb</string>
+          <string>--define '_topdir ${basedir}/${rpm}'</string>
+          <!-- Agility convention is to only put major.minor as RPM version -->
+          <string>--define 'rpm_version ${version.major}.${version.minor}'</string>
+          <string>--define 'rpm_revision ${version.build}.r${git.summary}'</string>
+          <string>--buildroot ${basedir}/${buildroot}</string>
+        </resources>
+        <pathconvert property="rpm.command" refid="rpm.args"
+                     pathsep=" "/>
+        <rpm specFile="${spec}" topDir="${rpm}"
+             failOnError="true" command="${rpm.command}"/>
+        <delete file="${specfile}"/>
+   </target>
+
+   <!-- =====================================================================
+        Cleanup
+        ================================================================= -->
+   <target name="clean" depends="clean_rpm"
+           description="Deletes all generated artifacts.">
+      <delete dir="${bin}"/>
+   </target>
+
+   <target name="clean_rpm" description="Deletes all generated RPM artifacts.">
+      <delete dir="${rpm}/BUILD"/>
+      <delete dir="${rpm}/BUILDROOT"/>
+      <delete dir="${rpm}/RPMS"/>
+      <delete dir="${rpm}/SOURCES"/>
+      <delete dir="${rpm}/SRPMS"/>
+   </target>
+
+   <!-- =====================================================================
+        CI and help
+        ================================================================= -->
+   <target name="ci" description="Continuous Integration target - builds RPM from scratch">
+      <antcall target="clean"/>
+      <antcall target="bundle"/>
+      <antcall target="rpm-build"/>
+   </target>
+
+   <target name="help" description="Help">
+      <java classname="org.apache.tools.ant.Main">
+         <arg value="-projecthelp"/>
+      </java>
+   </target>
+</project>

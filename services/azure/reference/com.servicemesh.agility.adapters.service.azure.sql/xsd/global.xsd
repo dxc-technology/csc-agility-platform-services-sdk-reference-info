@@ -1,0 +1,24 @@
+<xsd:schema targetNamespace="http://schemas.microsoft.com/sqlazure/2010/12/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc annox"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:annox="http://annox.dev.java.net" 
+    xmlns:a="http://annox.dev.java.net/com.servicemesh.agility.tools.annotation"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+    xmlns:jxml="http://annox.dev.java.net/javax.xml.bind.annotation"
+    xmlns:azure="http://schemas.microsoft.com/sqlazure/2010/12/" >
+
+   <xsd:annotation>
+      <xsd:appinfo>
+         <jaxb:globalBindings>
+            <xjc:simple />
+            <jaxb:serializable uid="20150116"/>
+            <jaxb:javaType name="java.util.Calendar" xmlType="xsd:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+         </jaxb:globalBindings>
+         <jaxb:schemaBindings>
+            <jaxb:package name="com.servicemesh.azure.sql.models" />
+         </jaxb:schemaBindings>
+      </xsd:appinfo>
+   </xsd:annotation>
+
+</xsd:schema>

@@ -1,0 +1,287 @@
+<xsd:schema targetNamespace="http://schemas.microsoft.com/windowsazure" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc annox"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:annox="http://annox.dev.java.net" 
+    xmlns:a="http://annox.dev.java.net/com.servicemesh.agility.tools.annotation"
+    xmlns:jl="http://annox.dev.java.net/java.lang"
+    xmlns:jxml="http://annox.dev.java.net/javax.xml.bind.annotation" >
+
+   <xsd:complexType name="ServiceResource">
+  	  <xsd:annotation>
+         <xsd:appinfo>
+            <annox:annotate target="class">
+               <jxml:XmlRootElement>
+                  <jxml:name>ServiceResource</jxml:name>
+               </jxml:XmlRootElement>
+               <a:ApiModel comment = "Class for holding generic service resource information." 
+                           description = "" 
+                           externalDocLink = "" />
+            </annox:annotate>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="Name" type="xsd:string">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the name of the resource." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="State" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the current state of the resource." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="Type" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the Azure type of resource." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="SelfLink" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="URI to this resource." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ParentLink" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="URI to the parent of this resource (the server)." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="AdministratorLogin" type="xsd:string" minOccurs="1" >
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="The username of the Admin user for the SQL Server." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="AdministratorLoginPassword" type="xsd:string" minOccurs="0" >
+      	    <xsd:annotation>
+      	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="The password of the Admin user for the SQL Server." />
+                  </annox:annotate>
+               </xsd:appinfo>
+      	    </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="Location" type="xsd:string" minOccurs="0" >
+      	    <xsd:annotation>
+      	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="The geographic location of the SQL Server. East Asia | Southeast Asia | Japan West | Japan East | Central US | North Central US | South Central US | West US | East US | East US 2 | North Europe | West Europe | Brazil South" />
+                  </annox:annotate>
+               </xsd:appinfo>
+      	    </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="FullyQualifiedDomainName" type="xsd:string" minOccurs="0" >
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Name of the server including the standard Azure suffix." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="GeoPairedRegion" type="xsd:string" minOccurs="0" >
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Geographical region paired with the server location.  Available when 'contentview=generic' is not used." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="Version" type="xsd:string" minOccurs="0" >
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Version of the server.  Available when 'contentview=generic' is not used." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="StartIPAddress" type="xsd:string" minOccurs="1" >
+      	    <xsd:annotation>
+      	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="The first IP that is granted access to the SQL Server by the firewall rule." />
+                  </annox:annotate>
+               </xsd:appinfo>
+      	    </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="EndIPAddress" type="xsd:string" minOccurs="1" >
+      	    <xsd:annotation>
+      	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="The last IP that is granted access to the SQL Server by the firewall rule." />
+                  </annox:annotate>
+               </xsd:appinfo>
+      	    </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="Id" type="xsd:int" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Internal Azure ID value." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CreationDate" type="xsd:dateTime" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the edition of the database that is being created.  Valid values are Web, Business, Basic, Standard, and Premium." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+  	     <xsd:element name="Edition" type="xsd:string" minOccurs="0">
+  	  	    <xsd:annotation>
+  	  	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the edition of the database that is being created.  Valid values are Web, Business, Basic, Standard, and Premium." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	  	    </xsd:annotation>
+  	     </xsd:element>
+  	     <xsd:element name="CollationName" type="xsd:string" minOccurs="0">
+  	  	    <xsd:annotation>
+  	  	       <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Specifies the collation of the database that is being created. Any SQL supported collation is valid.	The default database collation used by Microsoft Azure SQL Database is SQL_LATIN1_GENERAL_CP1_CI_AS, where LATIN1_GENERAL is English (United States), CP1 is code page 1252, CI is case-insensitive, and AS is accent-sensitive." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	  	    </xsd:annotation>
+  	     </xsd:element>
+  	     <xsd:element name="MaxSizeBytes" type="xsd:long" minOccurs="0">
+  	        <xsd:annotation>
+  	           <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Maximum size in bytes allowed for this database." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	       </xsd:annotation>
+  	     </xsd:element>
+         <xsd:element name="SizeMB" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Actual size in megabytes.  This may be null." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+  	     <xsd:element name="ServiceObjectiveId" type="xsd:string" minOccurs="0">
+  	       <xsd:annotation>
+  	          <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="The GUID corresponding to the performance level for Edition." />
+                  </annox:annotate>
+               </xsd:appinfo>
+  	       </xsd:annotation>
+  	     </xsd:element>
+         <xsd:element name="AssignedServiceObjectiveId" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Actual service object ID assigned to the database." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="RecoveryPeriodStartDate" type="xsd:dateTime" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Date and time the recovery period is to start." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ServiceObjectiveAssignmentErrorCode" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Error code." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ServiceObjectiveAssignmentErrorDescription" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Description associated with error code." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ServiceObjectiveAssignmentState" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="State of the service assignment." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ServiceObjectiveAssignmentStateDescription" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Description associated with the assignment state." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ServiceObjectiveAssignmentSuccessDate" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="Date of successful assignment of service." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="IsFederatedRoot" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="True if this database is the root of the federated database." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="IsSystemObject" type="xsd:boolean" minOccurs="0">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <annox:annotate target="field">
+                     <a:ApiField comment="True if this database is a system object." />
+                  </annox:annotate>
+               </xsd:appinfo>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

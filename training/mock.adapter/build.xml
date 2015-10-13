@@ -1,0 +1,263 @@
+<?xml version="1.0" standalone="yes"?>
+<project name="com.servicemesh.agility.adapters.service.mock" basedir="." 
+         default="help">
+
+   <!-- =====================================================================
+        Definitions
+        ================================================================= -->
+
+   <property name="common.basedir" value="${basedir}/../../../agility-platform-sdk"/>
+   <property name="common.ivy.lib" value="${common.basedir}/ivy-lib"/>
+   <property name="common.dist" value="${common.basedir}/dist"/>
+
+   <!-- version properties -->
+   <property name="mocksvc.version.major" value="1" />
+   <property name="mocksvc.version.minor" value="0" />
+   <property name="mocksvc.version.build" value="0" />
+   <property name="bundle.version"
+             value="${mocksvc.version.major}.${mocksvc.version.minor}.${mocksvc.version.build}" />
+
+   <!-- standard properties -->
+   <property name="src" value="src" />
+   <property name="bin" value="bin" />
+
+   <property name="bundle.name" value="${ant.project.name}-${bundle.version}"/>
+   <property name="bundle.jar" value="${bundle.name}.jar"/>
+   <property name="bin.bundle.jar" value = "${bin}/${bundle.jar}"/>
+
+   <!-- custom properties -->
+   <property name="config.file" value="${user.home}/mockservice.properties"/>
+   <property name="sdk.lib" value="${basedir}/../../lib"/>
+   
+   <!-- classpaths -->
+   <path id="compile.classpath">
+     <fileset dir="${common.ivy.lib}">
+       <include name="log4j-*.jar"/>
+       <include name="org.eclipse.osgi-*.jar"/>
+     </fileset>
+     <fileset dir="${common.dist}">
+       <include name="com.servicemesh.agility.api-*.jar"/>
+       <include name="com.servicemesh.agility.sdk.service-*.jar"/>
+       <include name="com.servicemesh.core-*.jar"/>
+     </fileset>
+   </path>
+
+   <!-- =====================================================================
+        Build targets
+        ================================================================= -->
+   <target name="init">
+     <mkdir dir="${bin}" />
+   </target>
+
+   <target name="compile" description="Compile all Java source files" depends="init">
+     <echo message="Compiling the java source files..." />
+     <javac destdir="${bin}" debug="on" fork="true" includeantruntime="false">
+       <src path="${src}"/>
+       <classpath>
+         <path refid="compile.classpath"/>
+       </classpath>
+     </javac>
+   </target>
+
+   <target name="bundle" depends="compile" description="Generate the bundle and put it in a jar file.">
+     <delete file="${bin.bundle.jar}" />
+      <property name="manifest" value="${bin}/META-INF/MANIFEST.MF"/>
+      <copy file="META-INF/MANIFEST.MF" tofile="${manifest}" overwrite="true"/>
+      <echo file="${manifest}" append="true"
+            message="Bundle-Description: Agility Mock Service adapter.${line.separator}"/>
+      <property name="propfile" value="${bin}/resources/MockServiceAdapter.properties"/>
+      <echo file="${propfile}">adapter.vendor=CSC Agility Dev
+adapter.version=${bundle.version}
+</echo>
+     <jar destfile="${bin.bundle.jar}" manifest="${manifest}" basedir="${bin}">
+         <fileset dir="${bin}">
+            <include name="**/*.class"/>
+            <include name="**/*.properties"/>
+         </fileset>
+     </jar>
+   </target>
+
+   <target name="init-config" description="Initializes configuration file">
+     <echo message="Initializing ${config.file}"/>
+     <echo file="${config.file}" append="false">#
+# ${ant.project.name} configuration
+#
+# This file is monitored by the mock service adapter and can be changed
+# on the fly.
+#
+# It defaults to false, but when true the Package.generate property causes the
+# mock service adapter to create a package and script at registration time.
+# Toggling the value requires you to manually restart the Agility Platform or
+# alternatively restart the service framework bundle. The adapter does not
+# remove a previously created package/script if the flag is false.
+#
+# Package.generate=true
+#
+# The service adapter defaults to assigning its package to a compute instance
+# that is connected to a mock service instance. Setting this value prevents
+# the assignment, but a package can alternatively still be added to a workload
+# on a blueprint.
+#
+# Package.assign=false
+#
+# The default is for all operations to succeed in zero milliseconds.
+# Possible values for .succeed are: { true, false, degraded }. A 'false'
+# represents a failed state.
+#
+# ConnectionOperations.preCreate.succeed=false
+# ConnectionOperations.preCreate.millis=1000
+#
+# ConnectionOperations.postCreate.succeed=false
+# ConnectionOperations.postCreate.millis=1000
+#
+# ConnectionOperations.preUpdate.succeed=false
+# ConnectionOperations.preUpdate.millis=1000
+#
+# ConnectionOperations.postUpdate.succeed=false
+# ConnectionOperations.postUpdate.millis=1000
+#
+# ConnectionOperations.preDelete.succeed=false
+# ConnectionOperations.preDelete.millis=1000
+#
+# ConnectionOperations.postDelete.succeed=false
+# ConnectionOperations.postDelete.millis=1000
+#
+# InstanceOperations.preProvision.succeed=false
+# InstanceOperations.preProvision.millis=1000
+#
+# InstanceOperations.postProvision.succeed=false
+# InstanceOperations.postProvision.millis=1000
+#
+# InstanceOperations.preBoot.succeed=false
+# InstanceOperations.preBoot.millis=1000
+#
+# InstanceOperations.postBoot.succeed=false
+# InstanceOperations.postBoot.millis=1000
+#
+# InstanceOperations.preStop.succeed=false
+# InstanceOperations.preStop.millis=1000
+#
+# InstanceOperations.postStop.succeed=false
+# InstanceOperations.postStop.millis=1000
+#
+# InstanceOperations.preStart.succeed=false
+# InstanceOperations.preStart.millis=1000
+#
+# InstanceOperations.postStart.succeed=false
+# InstanceOperations.postStart.millis=1000
+#
+# InstanceOperations.preRestart.succeed=false
+# InstanceOperations.preRestart.millis=1000
+#
+# InstanceOperations.postRestart.succeed=false
+# InstanceOperations.postRestart.millis=1000
+#
+# InstanceOperations.preRelease.succeed=false
+# InstanceOperations.preRelease.millis=1000
+#
+# InstanceOperations.postRelease.succeed=false
+# InstanceOperations.postRelease.millis=1000
+#
+# InstanceOperations.preReconfigure.succeed=false
+# InstanceOperations.preReconfigure.millis=1000
+#
+# InstanceOperations.postReconfigure.succeed=false
+# InstanceOperations.postReconfigure.millis=1000
+#
+# ServiceInstanceOperations.validate.succeed=false
+# ServiceInstanceOperations.validate.millis=1000
+#
+# ServiceInstanceOperations.provision.succeed=false
+# ServiceInstanceOperations.provision.millis=1000
+#
+# ServiceInstanceOperations.reconfigure.succeed=false
+# ServiceInstanceOperations.reconfigure.millis=1000
+#
+# ServiceInstanceOperations.start.succeed=false
+# ServiceInstanceOperations.start.millis=1000
+#
+# ServiceInstanceOperations.stop.succeed=false
+# ServiceInstanceOperations.stop.millis=1000
+#
+# ServiceInstanceOperations.release.succeed=false
+# ServiceInstanceOperations.release.millis=1000
+#
+# ServiceInstanceLifecycleOperations.preProvision.succeed=false
+# ServiceInstanceLifecycleOperations.preProvision.millis=1000
+#
+# ServiceInstanceLifecycleOperations.postProvision.succeed=false
+# ServiceInstanceLifecycleOperations.postProvision.millis=1000
+#
+# ServiceInstanceLifecycleOperations.preStop.succeed=false
+# ServiceInstanceLifecycleOperations.preStop.millis=1000
+#
+# ServiceInstanceLifecycleOperations.postStop.succeed=false
+# ServiceInstanceLifecycleOperations.postStop.millis=1000
+#
+# ServiceInstanceLifecycleOperations.preStart.succeed=false
+# ServiceInstanceLifecycleOperations.preStart.millis=1000
+#
+# ServiceInstanceLifecycleOperations.postStart.succeed=false
+# ServiceInstanceLifecycleOperations.postStart.millis=1000
+#
+# ServiceInstanceLifecycleOperations.preRestart.succeed=false
+# ServiceInstanceLifecycleOperations.preRestart.millis=1000
+#
+# ServiceInstanceLifecycleOperations.postRestart.succeed=false
+# ServiceInstanceLifecycleOperations.postRestart.millis=1000
+#
+# ServiceInstanceLifecycleOperations.preRelease.succeed=false
+# ServiceInstanceLifecycleOperations.preRelease.millis=1000
+#
+# ServiceInstanceLifecycleOperations.postRelease.succeed=false
+# ServiceInstanceLifecycleOperations.postRelease.millis=1000
+#
+# ServiceProviderOperations.preCreate.succeed=false
+# ServiceProviderOperations.preCreate.millis=1000
+#
+# ServiceProviderOperations.postCreate.succeed=false
+# ServiceProviderOperations.postCreate.millis=1000
+#
+# ServiceProviderOperations.preUpdate.succeed=false
+# ServiceProviderOperations.preUpdate.millis=1000
+#
+# ServiceProviderOperations.postUpdate.succeed=false
+# ServiceProviderOperations.postUpdate.millis=1000
+#
+# ServiceProviderOperations.preDelete.succeed=false
+# ServiceProviderOperations.preDelete.millis=1000
+#
+# ServiceProviderOperations.postDelete.succeed=false
+# ServiceProviderOperations.postDelete.millis=1000
+#
+# ServiceProviderOperations.sync.succeed=false
+# ServiceProviderOperations.sync.millis=1000
+#
+# ServiceProviderOperations.ping.succeed=false
+# ServiceProviderOperations.ping.millis=1000
+#
+# ServiceProviderOperations.start.succeed=false
+# ServiceProviderOperations.start.millis=1000
+#
+# ServiceProviderOperations.stop.succeed=false
+# ServiceProviderOperations.stop.millis=1000
+</echo>
+   </target>
+
+   <!-- =====================================================================
+        Cleanup
+        ================================================================= -->
+   <target name="clean" description="Deletes all generated artifacts.">
+     <delete dir="${bin}" />
+   </target>
+
+   <!-- =====================================================================
+        CI and help
+        ================================================================= -->
+   <target name="help" description="Help">
+     <echo message="ServiceMesh Mock Service Adapter:"/>
+   	 <echo message="clean - Deletes all generated artifacts."/>
+   	 <echo message="bundle - Compiles the code and puts it in a jar file."/>
+     <echo message="init-config - creates configuration file ${config.file}"/>
+   </target>
+</project>
