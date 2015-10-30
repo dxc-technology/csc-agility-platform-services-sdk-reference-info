@@ -19,6 +19,7 @@ import com.servicemesh.agility.api.Asset;
 import com.servicemesh.agility.api.AssetType;
 import com.servicemesh.agility.api.Connection;
 import com.servicemesh.agility.api.ConnectionDefinition;
+import com.servicemesh.agility.api.Editor;
 import com.servicemesh.agility.api.Link;
 import com.servicemesh.agility.api.Package;
 import com.servicemesh.agility.api.Property;
@@ -329,6 +330,10 @@ public class MockServiceAdapter extends ServiceAdapter
         mockProvider.setDescription(SERVICE_PROVIDER_DESCRIPTION);
         mockProvider.getPropertyDefinitions().add(provTestPD);
         mockProvider.setSuperType(serviceprovidertype);
+        
+        serviceType.getEditors().add(Editor.VARIABLES);
+        serviceType.getEditors().add(Editor.FIREWALL);
+        serviceType.getEditors().add(Editor.POLICY);
 
         registration.getAssetTypes().add(launchItemType);
         registration.getAssetTypes().add(connectionType);
