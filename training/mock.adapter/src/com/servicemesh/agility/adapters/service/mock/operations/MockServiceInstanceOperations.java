@@ -144,13 +144,17 @@ public class MockServiceInstanceOperations extends ServiceInstanceOperations
         ServiceInstance svcInstance = request.getServiceInstance();
         if (svcInstance != null) {
             props = MockServiceConfig.getTestProperties(svcInstance);
-
             if (logger.isDebugEnabled()) {
+            	List<AssetProperty> vars = request.getServiceInstance().getVariables();
+                String varlog = "Service Instance String Variables are...\n";
+                for (AssetProperty var: vars) {
+                	varlog = varlog + var.getName() + ":" + var.getStringValue() + "\n";
+                }
                 ServiceState state = svcInstance.getState();
                 String strState = (state != null) ? state.value() : "N/A";
                 logger.debug(operation + " ServiceInstance id=" +
                              svcInstance.getId() + ", name=" +
-                             svcInstance.getName() + ", state=" + strState);
+                             svcInstance.getName() + ", state=" + strState + "\n" + varlog);
             }
         }
         return MockOperationsManager.execute(this, operation, request,
