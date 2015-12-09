@@ -1,0 +1,91 @@
+<?xml version="1.0" standalone="yes"?>
+<project name="com.servicemesh.agility.adapters.service.mockns" basedir="." 
+         default="help">
+
+   <!-- =====================================================================
+        Definitions
+        ================================================================= -->
+
+   <property name="common.basedir" value="${basedir}/../../../agility-platform-sdk"/>
+   <property name="common.ivy.lib" value="${common.basedir}/ivy-lib"/>
+   <property name="common.dist" value="${common.basedir}/dist"/>
+
+   <!-- version properties -->
+   <property name="mockns.version.major" value="1" />
+   <property name="mockns.version.minor" value="0" />
+   <property name="mockns.version.build" value="0" />
+   <property name="bundle.version"
+             value="${mockns.version.major}.${mockns.version.minor}.${mockns.version.build}" />
+
+   <!-- standard properties -->
+   <property name="src" value="src" />
+   <property name="bin" value="bin" />
+
+   <property name="bundle.name" value="${ant.project.name}-${bundle.version}"/>
+   <property name="bundle.jar" value="${bundle.name}.jar"/>
+   <property name="bin.bundle.jar" value = "${bin}/${bundle.jar}"/>
+
+   <!-- classpaths -->
+   <path id="compile.classpath">
+     <fileset dir="${common.ivy.lib}">
+       <include name="log4j-*.jar"/>
+       <include name="org.eclipse.osgi-*.jar"/>
+     </fileset>
+     <fileset dir="${common.dist}">
+       <include name="com.servicemesh.agility.api-*.jar"/>
+       <include name="com.servicemesh.agility.sdk.service-*.jar"/>
+       <include name="com.servicemesh.core-*.jar"/>
+     </fileset>
+   </path>
+
+   <!-- =====================================================================
+        Build targets
+        ================================================================= -->
+   <target name="init">
+     <mkdir dir="${bin}" />
+   </target>
+
+   <target name="compile" description="Compile all Java source files" depends="init">
+     <echo message="Compiling the java source files..." />
+     <javac destdir="${bin}" debug="on" fork="true" includeantruntime="false">
+       <src path="${src}"/>
+       <classpath>
+         <path refid="compile.classpath"/>
+       </classpath>
+     </javac>
+   </target>
+
+   <target name="bundle" depends="compile" description="Generate the bundle and put it in a jar file.">
+     <delete file="${bin.bundle.jar}" />
+      <property name="manifest" value="${bin}/META-INF/MANIFEST.MF"/>
+      <copy file="META-INF/MANIFEST.MF" tofile="${manifest}" overwrite="true"/>
+      <echo file="${manifest}" append="true"
+            message="Bundle-Description: Agility Mock Network Service adapter.${line.separator}"/>
+      <property name="propfile" value="${bin}/resources/MockNetworkServiceAdapter.properties"/>
+      <echo file="${propfile}">adapter.vendor=CSC Agility Dev
+adapter.version=${bundle.version}
+</echo>
+     <jar destfile="${bin.bundle.jar}" manifest="${manifest}" basedir="${bin}">
+         <fileset dir="${bin}">
+            <include name="**/*.class"/>
+            <include name="**/*.properties"/>
+         </fileset>
+     </jar>
+   </target>
+
+   <!-- =====================================================================
+        Cleanup
+        ================================================================= -->
+   <target name="clean" description="Deletes all generated artifacts.">
+     <delete dir="${bin}" />
+   </target>
+
+   <!-- =====================================================================
+        CI and help
+        ================================================================= -->
+   <target name="help" description="Help">
+     <echo message="ServiceMesh Mock Network Service Adapter:"/>
+   	 <echo message="clean - Deletes all generated artifacts."/>
+   	 <echo message="bundle - Compiles the code and puts it in a jar file."/>
+   </target>
+</project>

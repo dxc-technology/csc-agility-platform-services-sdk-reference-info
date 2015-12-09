@@ -6,6 +6,8 @@ Two subdirectories are for exercises from the slides:
 * promise.exercises: Work through practical use cases for `com.servicemesh.core.async.Promise`
 * services.training: Provides a framework for service adapter development
 
-The third directory, mock.adapter, provides a reference implementation of the *Mock Service* adapter. It provides some fuller examples of material discussed in the slides.
+Two other subdirectories provide fuller examples of material discussed in the slides:
+* mock.adapter: provides a reference implementation of the *Mock Service* adapter. This adapter illustrates advanced concepts such as creating a Package and assigning it to a Template.
+* mock.netsvc: provides a reference implementation of the *Mock Network Service* adapter. This adapter illustrates a pure network service that requires no Service asset type.
 
-Eclipse projects are defined for all three subdirectories.
+Eclipse projects are defined for all subdirectories.
