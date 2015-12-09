@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Agility - Mock Service Adapter
-Bundle-SymbolicName: com.servicemesh.agility.adapters.service.mock
+Bundle-Name: Agility - Mock Network Service Adapter
+Bundle-SymbolicName: com.servicemesh.agility.adapters.service.mockns
 Bundle-Version: 1.0.0
-Bundle-Activator: com.servicemesh.agility.adapters.service.mock.MockServiceAdapter
+Bundle-Activator: com.servicemesh.agility.adapters.service.mockns.MockNetworkServiceAdapter
 Bundle-Vendor: CSC Agility Dev
 Bundle-Category: adapter:service
 Import-Package: com.servicemesh.agility.api;version="3.1.0",
