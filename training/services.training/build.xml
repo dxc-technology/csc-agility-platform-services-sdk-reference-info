@@ -5,7 +5,7 @@
         Definitions
         ================================================================= -->
 
-   <property name="common.basedir" value="${basedir}/../../../agility-platform-sdk"/>
+   <property name="common.basedir" value="${basedir}/../../../csc-agility-platform-sdk"/>
    <property name="common.ivy.lib" value="${common.basedir}/ivy-lib"/>
    <property name="common.dist" value="${common.basedir}/dist"/>
 
