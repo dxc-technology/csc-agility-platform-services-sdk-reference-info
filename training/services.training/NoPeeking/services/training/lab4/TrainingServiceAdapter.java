@@ -100,6 +100,35 @@ public class TrainingServiceAdapter extends ServiceAdapter {
         serviceType.setSuperType(service);
         serviceType.getPropertyDefinitions().add(svcTestPD);
         
+        // define connections
+        String X_CONNECTION_TYPE =
+            "application/" + Connection.class.getName() + "+xml";
+        Link mockLink = new Link();
+        mockLink.setName(CONNECTION_TYPE);
+        mockLink.setType(X_CONNECTION_TYPE);
+
+        Link workloadLink = new Link();
+        workloadLink.setName("designworkload");
+        
+        Link connection = new Link();
+        connection.setName("designconnection");
+        connection.setType(X_CONNECTION_TYPE);
+
+        // workload to demo connection
+        ConnectionDefinition workloadDestConnection =
+            new ConnectionDefinition();
+        workloadDestConnection.setName("workload-to-demo-service");
+        workloadDestConnection.setDescription("From any workload");
+        workloadDestConnection.setConnectionType(mockLink);
+        workloadDestConnection.setSourceType(workloadLink);
+        serviceType.getDestConnections().add(workloadDestConnection);
+        
+        AssetType connectionType = new AssetType();
+        connectionType.setName(CONNECTION_TYPE);
+        connectionType.setDisplayName(CONNECTION_NAME);
+        connectionType.setDescription(CONNECTION_NAME);
+        connectionType.setSuperType(connection);
+        connectionType.setAllowExtensions(true);
         
         // define demo service provider
         Link serviceprovidertype = new Link();
@@ -129,6 +158,7 @@ public class TrainingServiceAdapter extends ServiceAdapter {
         serviceType.getEditors().add(Editor.FIREWALL);
         serviceType.getEditors().add(Editor.POLICY);
 
+        registration.getAssetTypes().add(connectionType);
         registration.getAssetTypes().add(serviceType);
         registration.getAssetTypes().add(mockProvider);
         registration.getServiceProviderTypes().addAll(getServiceProviderTypes());
