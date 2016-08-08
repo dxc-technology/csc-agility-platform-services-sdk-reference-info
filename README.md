@@ -1,4 +1,4 @@
-# csc-agility-platform-services-sdk-reference-info
+# CSC Agility Platform Services SDK Reference Info
 
 The Services Software Development Kit (SDK) is a capability offered in the CSC Agility Platform&trade; that provides an integration path to external platform and application cloud services. The Services SDK could be used, for example, to build service adapters for a cloud provider’s Database as a Service (DBaaS) or Load Balancer as a Service (LBaaS).
 
@@ -17,7 +17,7 @@ A service adapter, built from the Services SDK, is an OSGi bundle comprised of J
 
 ## Build Configuration
 
-The examples in this repository are compatible with Java 8 and ant 1.9.3.
+The examples in this repository are compatible with Java 8 and Apache Ant 1.9.3.
 
 The examples are dependent on the [csc-agility-platform-sdk project](https://github.com/csc/csc-agility-platform-sdk).
 
