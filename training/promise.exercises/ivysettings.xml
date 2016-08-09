@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-settings>
+   <settings defaultResolver="ivy" />
+   <resolvers>
+
+      <bintray name="csc-opensrc" subject="csc" repo="opensource"/>
+
+      <chain name="ivy" returnFirst="true">
+         <resolver ref="csc-opensrc" />
+      </chain>
+   </resolvers>
+</ivy-settings>

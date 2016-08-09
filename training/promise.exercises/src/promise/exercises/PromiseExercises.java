@@ -11,15 +11,8 @@ import com.servicemesh.core.async.PromiseFactory;
 
 /**
  * TODO If you are using eclipse to edit or build this project make sure you
- * create a classpath variable named LIB that points to the lib directory under
- * agility-platform-services-sdk 
- * 
- * Right click on your project. Click on Build Path -> Configure Build Path
- * Click Add Variable
- * Click Configure Variables...
- * Click New...
- * Set the name of the variable to LIB
- * Set the path of the variable to point to the lib folder in agility-platform-services-sdk
+ * install the IvyDE plugin.
+ * Apache Ivy update site - http://www.apache.org/dist/ant/ivyde/updatesite
  *
  */
 

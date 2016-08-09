@@ -5,3 +5,4 @@ services/azure/reference/com.servicemesh.agility.adapters.service.azure.trafficm
 training/services.training/bin
 training/promise.exercises/bin
 training/mock.adapter/bin
+ivy-lib/

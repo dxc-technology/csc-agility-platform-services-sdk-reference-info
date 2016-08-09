@@ -1,25 +1,11 @@
 <?xml version="1.0" standalone="yes"?>
-<project name="com.servicemesh.agility.adapters.service.azure.trafficmanager" basedir="." default="help">
+<project name="com.servicemesh.agility.adapters.service.azure.trafficmanager" basedir="." default="help"
+	xmlns:ivy="antlib:org.apache.ivy.ant">
 
    <!-- =====================================================================
         Definitions
         ================================================================= -->
-
-   <property name="common.basedir" value="${basedir}/../../../../../csc-agility-platform-sdk"/>
-   <property name="common.ivy.lib" value="${common.basedir}/ivy-lib"/>
-   <property name="common.dist" value="${common.basedir}/dist"/>
-
-   <property name="core.azure.basedir" value="${basedir}/../../../../../com.servicemesh.agility.adapters.core.azure"/>
-   <property name="core.azure.ivy.lib" value="${core.azure.basedir}/ivy-lib"/>
-   <property name="core.azure.bin" value="${core.azure.basedir}/bin"/>
-
-   <available file="${common.dist}" type="dir" property="common.present"/>
-   <fail unless="common.present"
-         message="This project requires a built ${common.basedir}"/>
-
-   <available file="${core.azure.bin}" type="dir" property="core.azure.present"/>
-   <fail unless="core.azure.present"
-         message="This project requires a built ${core.azure.basedir}"/>
+   <property name="ivy.lib" value="ivy-lib" />
 
    <!-- version properties -->
    <property name="version.major" value="1"/>
@@ -52,17 +38,13 @@
 
    <!-- classpaths -->
    <path id="compile.classpath">
-      <fileset dir="${core.azure.bin}">
-        <include name="com.servicemesh.agility.adapters.core.azure-*.jar"/>
-      </fileset>
-      <fileset dir="${common.dist}">
-         <include name="com.servicemesh.agility.api-*.jar"/>
-         <include name="com.servicemesh.agility.sdk.service-*.jar"/>
-         <include name="com.servicemesh.agility.distributed.sync-*.jar"/>
-         <include name="com.servicemesh.core-*.jar"/>
-         <include name="com.servicemesh.io-*.jar"/>
-      </fileset>
-      <fileset dir="${common.ivy.lib}">
+      <fileset dir="${ivy.lib}">
+		 <include name="com.servicemesh.agility.adapters.core.azure-*.jar"/>
+         <include name="agility.api-*.jar"/>
+         <include name="agility.sdk-service-*.jar"/>
+         <include name="agility.distributed.sync-*.jar"/>
+         <include name="core-*.jar"/>
+         <include name="io-*.jar"/>
          <include name="log4j-*.jar"/>
          <include name="org.eclipse.osgi-*.jar"/>
       </fileset>
@@ -73,6 +55,9 @@
         ================================================================= -->
    <target name="init">
       <mkdir dir="${bin}"/>
+      <mkdir dir="${ivy.lib}"/>
+
+      <ivy:retrieve pattern="${ivy.lib}/[module]-[revision].[ext]"/>
    </target>
 
    <target name="compile" description="Compile all Java source files" depends="init">
@@ -160,6 +145,7 @@ adapter.revision=r${git.summary}
            description="Deletes all generated artifacts.">
       <delete dir="${bin}"/>
       <delete dir="${src}/org"/>
+	  <delete dir="${ivy.lib}"/>
    </target>
 
    <target name="clean_rpm" description="Deletes all generated RPM artifacts.">

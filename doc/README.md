@@ -1,0 +1,1 @@
+The docs have temporarily been removed while we make a version that meets the CSC opensource standards. If you are a paying CSC Agility Platform&trade; customer you can contact the Agility support team and they will be able to help you get a copy of the PDF that used to be here. 

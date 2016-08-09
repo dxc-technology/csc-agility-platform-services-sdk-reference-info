@@ -1,0 +1,10 @@
+<ivy-module version="2.0" >
+  <info organisation="com.servicemesh" module="${ant.project.name}" />
+  <dependencies>
+
+	<dependency org="com.servicemesh" name="core" rev="10.2.2.+" force="true" >
+		<artifact name="core" type="jar" ext="jar" />
+	</dependency>			
+	
+  </dependencies>
+</ivy-module>
