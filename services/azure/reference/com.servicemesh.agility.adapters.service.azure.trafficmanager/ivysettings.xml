@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-settings>
+   <settings defaultResolver="ivy" />
+   <resolvers>
+
+      <bintray name="csc-opensrc" subject="csc" repo="opensource"/>
+      <ibiblio name="maven2" m2compatible="true" root="https://repo1.maven.org/maven2/" />
+
+      <chain name="ivy" returnFirst="true">
+         <resolver ref="csc-opensrc" />
+         <resolver ref="maven2" />
+      </chain>
+   </resolvers>
+</ivy-settings>

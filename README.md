@@ -17,14 +17,13 @@ A service adapter, built from the Services SDK, is an OSGi bundle comprised of J
 
 ## Build Configuration
 
-The examples in this repository are compatible with Java 8 and Apache Ant 1.9.3.
+The examples in this repository are compatible with Java 8, Apache ant 1.9.3 and Apache Ivy.
 
-The examples are dependent on the [csc-agility-platform-sdk project](https://github.com/csc/csc-agility-platform-sdk).
+The examples are dependent on the [csc-agility-platform-sdk project](https://github.com/csc/csc-agility-platform-sdk) and will download compiled versions of those projects using Ivy.
 
-If you want to utilize Eclipse you'll need to define Eclipse build path variables:
+If you want to utilize Eclipse you'll need to install the IvyDE plugin for eclipse. 
+Apache Ivy update site - http://www.apache.org/dist/ant/ivyde/updatesite
 
-* IVY-LIB: Contains the path to the ivy-lib directory under csc-agility-platform-sdk
-* DIST: Contains the path to the dist directory under csc-agility-platform-sdk
 
 ## License
 The Services SDK and the reference code provided in this repository are licensed under the Apache License, Version 2.0. See [LICENSE](https://github.com/csc/csc-agility-platform-services-sdk-reference-info/blob/master/LICENSE) for the full license text.
